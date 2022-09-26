@@ -493,7 +493,7 @@ public class menu {
 	}
 	
 	public void randomAbfrage() {
-		JOptionPane.showConfirmDialog(frame, "Test");
+		
     }
 	public void skillAbfrageDE_EN() {
 		
