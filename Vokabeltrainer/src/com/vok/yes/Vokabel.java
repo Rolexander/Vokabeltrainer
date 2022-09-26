@@ -128,7 +128,34 @@ public class Vokabel{
         }
     }
     
-    public void delVok() {
-    	
+    public void delVok(String DeutscheVokabel, String EnglischeVokabel){
+        File oldFile = new File("VokList.csv");
+        File newFile = new File("temp.csv");
+        String vDE = ""; String vEN = ""; String vVa = "";
+
+
+        try (FileWriter fw = new FileWriter("temp.csv", true)) {
+
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            Scanner x = new Scanner(new File("VokList.csv"));
+            x.useDelimiter("[,\n]");
+            while(x.hasNext()){
+                vDE = x.next();
+                vEN = x.next();
+                vVa = x.next();
+                if(!vDE.equals(DeutscheVokabel) && !vEN.equals(EnglischeVokabel) ){
+                    pw.println(vDE +","+ vEN +","+vVa);
+                }
+            }
+            x.close();
+            pw.flush();
+            pw.close();
+            oldFile.delete();
+            File dump = new File("VokList.csv");
+            newFile.renameTo(dump);
+
+        } catch (Exception e) {}
+
     }
 }
