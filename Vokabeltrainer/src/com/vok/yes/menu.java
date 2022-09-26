@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
 import javax.swing.JButton;
@@ -492,25 +493,7 @@ public class menu {
 	}
 	
 	public void randomAbfrage() {
-		try(FileReader reader = new FileReader(v.path)){
-            BufferedReader br = new BufferedReader(new FileReader(v.path));
-            while((line = br.readLine()) != null){
-                String[] werte = line.split(",");
-                String dt = werte[0];
-                String en = werte[1];
-                
-                lblVOK_checkVok.setText(dt);
-                //wait(1000);
-                if(textFieldInput_checkVok.toString() == en) {
-                	JOptionPane.showMessageDialog(frame, "Correct! Wow!");
-                }else {
-                	System.out.println("Erm.. u sure?");
-                }
-            }
-        }catch(Exception e){
-            System.out.println("Something went wrong II.");
-        }
-        //return liste;
+		
     }
 	public void skillAbfrageDE_EN() {
 		

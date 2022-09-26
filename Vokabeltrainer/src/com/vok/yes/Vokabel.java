@@ -107,6 +107,27 @@ public class Vokabel{
         }
     }
     
+    public String getVokDE(int Nr){
+        String DEvok = "";
+        int aktuelNr = 0;
+        try(FileReader reader = new FileReader("VokList.csv")){
+
+            BufferedReader in = new BufferedReader(reader);
+            String zeile = null;
+            while ((zeile = in.readLine()) != null) {
+                if (Nr == aktuelNr){
+                    String[] vok = zeile.split(",");
+                    DEvok = vok[0];
+                }
+                aktuelNr += 1;
+            }
+            return DEvok;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
     public void delVok() {
     	
     }
