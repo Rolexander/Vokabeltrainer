@@ -42,7 +42,6 @@ public class Vokabel{
 
         // first create file object for file placed at location
         // specified by filepath
-        BufferedReader in;
 
         try (FileWriter writer = new FileWriter(path, true)) {
 
@@ -68,7 +67,6 @@ public class Vokabel{
         String VALvok = "";
         int aktuelNr = 0;
         try(FileReader reader = new FileReader(path)){     
-            List<Vokabel> liste = new List<Vokabel>();
             BufferedReader in = new BufferedReader(reader);
             String zeile = null;
             while ((zeile = in.readLine()) != null) {
@@ -90,7 +88,6 @@ public class Vokabel{
         String ENvok = "";
         int aktuelNr = 0;
         try(FileReader reader = new FileReader(path)){     
-            List<Vokabel> liste = new List<Vokabel>();
             BufferedReader in = new BufferedReader(reader);
             String zeile = null;
             while ((zeile = in.readLine()) != null) {
