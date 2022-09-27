@@ -355,7 +355,7 @@ public class main {
 		JButton btndel_vokList = new JButton("Delete vocabulary");
 		btndel_vokList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				delVok2();
+				delVok();
 			}
 		});
 		btndel_vokList.setBounds(128, 240, 141, 29);
@@ -470,12 +470,17 @@ public class main {
 	}
 	
 	public void delVok() {
-        // check the selected row first
+		File oldFile = new File("VokList.csv");
+        File newFile = new File("temp.csv");
+        
+        //check the selected row first
         if(table.getSelectedRow() != -1){
         // remove the selected row from the table model
         ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
         JOptionPane.showMessageDialog(null, "Deleted successfully");
         }
+        saveVokList();
+        
 	}
 	
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -496,16 +501,9 @@ public class main {
 		});
 	}
 	
-	public void delVok2(){
+	public void saveVokList(){
 		File oldFile = new File("VokList.csv");
         File newFile = new File("temp.csv");
-        
-        //check the selected row first
-        if(table.getSelectedRow() != -1){
-        // remove the selected row from the table model
-        ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
-        JOptionPane.showMessageDialog(null, "Deleted successfully");
-        }
         
 		try {
 			TableModel model = table.getModel();
