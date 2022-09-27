@@ -7,12 +7,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import java.awt.Color;
 import javax.swing.JTable;
@@ -35,7 +39,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class menu {
+public class main {
 	//import and declare stuff
 	private JFrame frame;
 	private JPasswordField passwordField;
@@ -54,7 +58,7 @@ public class menu {
 	Vokabel v = new Vokabel(null, null);
 	
 	private JScrollBar scrollBar;
-	JTable table;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -63,7 +67,7 @@ public class menu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					menu window = new menu();
+					main window = new main();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -76,7 +80,7 @@ public class menu {
 	 * Create the application.
 	 */
 	
-	public menu() {
+	public main() {
 		initialize();
 	}
 
@@ -153,7 +157,7 @@ public class menu {
 		lblCheckYourSkills.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 26));
 		checkVok_panel.add(lblCheckYourSkills);
 		
-		lblVOK_checkVok = new JLabel("Deutsch");
+		lblVOK_checkVok = new JLabel("Voc");
 		lblVOK_checkVok.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblVOK_checkVok.setHorizontalAlignment(SwingConstants.CENTER);
 		lblVOK_checkVok.setBounds(6, 51, 438, 104);
@@ -351,7 +355,7 @@ public class menu {
 		JButton btndel_vokList = new JButton("Delete vocabulary");
 		btndel_vokList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				delVok();
+				delVok2();
 			}
 		});
 		btndel_vokList.setBounds(128, 240, 141, 29);
@@ -466,14 +470,14 @@ public class menu {
 	}
 	
 	public void delVok() {
-           // check the selected row first
-           if(table.getSelectedRow() != -1) 
-           {
-              // remove the selected row from the table model
-              ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
-              JOptionPane.showMessageDialog(null, "Deleted successfully");
-           }
+        // check the selected row first
+        if(table.getSelectedRow() != -1){
+        // remove the selected row from the table model
+        ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
+        JOptionPane.showMessageDialog(null, "Deleted successfully");
         }
+	}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -491,6 +495,44 @@ public class menu {
 			}
 		});
 	}
+	
+	public void delVok2(){
+		File oldFile = new File("VokList.csv");
+        File newFile = new File("temp.csv");
+        
+        //check the selected row first
+        if(table.getSelectedRow() != -1){
+        // remove the selected row from the table model
+        ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
+        JOptionPane.showMessageDialog(null, "Deleted successfully");
+        }
+        
+		try {
+			TableModel model = table.getModel();
+	        FileWriter csv = new FileWriter(new File("temp.csv"));
+
+	        for (int i = 0; i < model.getColumnCount(); i++) {
+	            csv.write(model.getColumnName(i) + ",");
+	        }
+
+	        csv.write("\n");
+
+	        for (int i = 0; i < model.getRowCount(); i++) {
+	            for (int j = 0; j < model.getColumnCount(); j++) {
+	                csv.write(model.getValueAt(i, j).toString() + ",");
+	            }
+	            csv.write("\n");
+	            oldFile.delete();
+	            File dump = new File(v.path);
+	            newFile.renameTo(dump);
+	        }
+
+	        csv.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+
+    }
 	
 	public void randomAbfrage() {
 		
