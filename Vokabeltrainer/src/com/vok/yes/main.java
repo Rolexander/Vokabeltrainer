@@ -452,7 +452,7 @@ public class main {
 		try {
 			br = new BufferedReader(new FileReader(file));
 			String firstline = br.readLine().trim();
-			String[] columnsName = firstline.split("/");
+			String[] columnsName = firstline.split(",");
 			DefaultTableModel model = (DefaultTableModel)table.getModel();
 			model.setColumnIdentifiers(columnsName);
 
@@ -531,6 +531,27 @@ public class main {
 	    }
 
     }
+	
+	/*
+	 * write function…
+	 * 
+	 * public class CSVExporterUtils{
+    public static void exportToCSV( JTable tableToExport, String pathToExportTo ){
+        // Pseudocode below
+        Open file and test if valid path
+
+        Loop through each table line
+            Loop through each column
+                Get value at line, column
+                    Add value to StringBuilder plus a comma
+            Write contents of StringBuilder to file
+            And add return using System.getProperty("line.separator")
+        End Loop
+
+        Close file
+    }
+}
+	 */
 	
 	public void randomAbfrage() {
 		
