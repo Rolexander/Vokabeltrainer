@@ -233,7 +233,7 @@ public class main {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pwdCheck();
+					pwdCheck();
 			}
 		});
 		btnLogin.setBounds(120, 198, 125, 26);
@@ -264,12 +264,6 @@ public class main {
 		addVok_panel.setBackground(UIManager.getColor("Button.select"));
 		addVok_panel.setBounds(0, 0, 450, 275);
 		addVok_panel.setVisible(false);
-		
-		//panel for listing vocaublary
-		listVok_panel = new JPanel();
-		listVok_panel.setBackground(UIManager.getColor("Button.select"));
-		listVok_panel.setBounds(0, 0, 450, 275);
-		listVok_panel.setVisible(false);
 		
 		//menu panel
 		menu_panel = new JPanel();
@@ -317,6 +311,12 @@ public class main {
 		menu_panel.add(btncheckKnowledge_menu);
 		btnListVok_listVok.setBounds(6, 99, 134, 29);
 		menu_panel.add(btnListVok_listVok);
+		
+		//panel for listing vocaublary
+		listVok_panel = new JPanel();
+		listVok_panel.setBackground(UIManager.getColor("Button.select"));
+		listVok_panel.setBounds(0, 0, 450, 275);
+		listVok_panel.setVisible(false);
 		frame.getContentPane().add(listVok_panel);
 		listVok_panel.setLayout(null);
 		
@@ -362,6 +362,11 @@ public class main {
 		listVok_panel.add(btndel_vokList);
 		
 		JButton btn_save_listVok = new JButton("Save");
+		btn_save_listVok.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saveVokList();
+			}
+		});
 		btn_save_listVok.setBounds(272, 240, 81, 29);
 		listVok_panel.add(btn_save_listVok);
 		frame.getContentPane().add(addVok_panel);
@@ -432,17 +437,24 @@ public class main {
 		
 		lblFin.setText(""+pas);
 		
-		if (pas.length != Password1.length) {
+		if (pas.length != Password1.length && User1 != urs) {
 		    isCorrect = false;
 		} else {
 		    isCorrect = Arrays.equals (pas, Password1);
 		}
 		
+		if (pas.length != Password2.length && User2 != urs) {
+		    isCorrect = false;
+		} else {
+		    isCorrect = Arrays.equals (pas, Password2);
+		}
 		if(isCorrect==true) {
 			Arrays.fill(Password1, '0');
+			Arrays.fill(Password2, '0');
 			login_panel.setVisible(false);
 			menu_panel.setVisible(true);
 		}
+		
 	}
 	
 	//data from csv to JTable
