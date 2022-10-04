@@ -1,6 +1,7 @@
 # Vokabeltrainer
 
 ---
+
 ![alt text](VocTrain.png)
 ---
 Dear Reader,
